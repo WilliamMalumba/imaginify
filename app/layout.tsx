@@ -6,10 +6,11 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-  SignIn
+  SignIn,
 } from "@clerk/nextjs";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Sign } from "crypto";
 
 const IBMPlex = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -28,20 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: { colorPrimary: "#624cf5" },
+      }}
+    >
       <html lang="en">
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
-          <header className="flex justify-between items-center p-4">
-            <UserButton showName={true} />
-          </header>
-        <SignedOut>
-          <SignIn routing="hash" />
-        </SignedOut>
-        <SignedIn>
-          {children}
-        </SignedIn>      
-      </body>
-    </html>
+          <SignedOut>
+            <SignIn routing="hash" />
+          </SignedOut>
+          <SignedIn>{children}</SignedIn>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
