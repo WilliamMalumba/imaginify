@@ -7,8 +7,8 @@ export interface IUser extends Document {
     email: string;
     username: string;
     photo: string;
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
     planId: string;
     creditBalance: number;
     createdAt?: Date;
